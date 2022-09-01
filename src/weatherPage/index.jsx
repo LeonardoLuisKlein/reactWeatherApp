@@ -1,8 +1,9 @@
 import { useState } from 'react'
+import './style.scss'
 
 export function Weather() {
 const [location, setLocation] = useState("")
-const [temp, setTemp] = useState({city: "", weather: "", time: ""})
+const [temp, setTemp] = useState({city: "Waiting", weather: "--", time: "Waiting", icon: ""})
 
 function searchLocation(event){
   if(event.key === 'Enter'){
@@ -12,7 +13,8 @@ function searchLocation(event){
     setTemp ({
       city: data.location.name,
       weather: data.current.temp_c.toFixed(0),
-      time: data.current.condition.text
+      time: data.current.condition.text,
+      icon: data.current.icon
     })
   })
 }
@@ -26,8 +28,8 @@ function searchLocation(event){
       onChange={(event) => setLocation(event.target.value)}
       onKeyPress={searchLocation}
       />
-      <h1>{temp.city}</h1>
-      <h2>{temp.weather}°</h2>
+      <h2>{temp.city}</h2>
+      <h3>{temp.weather}°c</h3>
       <p>{temp.time}</p>
     </div>
   )
