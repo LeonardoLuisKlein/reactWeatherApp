@@ -1,7 +1,14 @@
 body {
   background-image: url(../assets/warmbg.jpg);
-  justify-content: center;
-  align-items: center;
+}
+
+h1{
+    text-align: center;
+    color: #FFF;
+    font-size: 36px;
+    font-weight: 700;
+    font-style: italic;
+    text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 
 .Weather {
@@ -9,7 +16,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 85vh;
   @media (max-width: 768px){
     gap: 50px;
 }

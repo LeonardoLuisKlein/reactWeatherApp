@@ -28,6 +28,8 @@ export function Weather() {
   }
 
   return (
+    <div>
+      <h1>Weather React app by Leonardo Klein</h1>
     <div className="Weather">
       <input
         type="text"
@@ -38,6 +40,7 @@ export function Weather() {
       <h2>{temp.city}</h2>
       <h3>{temp.weather}°c</h3>
       <p>{temp.time}</p>
+    </div>
     </div>
   );
 }
