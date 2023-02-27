@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./style.scss";
+import { BsSearch } from 'react-icons/bs';
 
 export function Weather() {
   const [location, setLocation] = useState("");
@@ -11,7 +12,6 @@ export function Weather() {
   });
 
   function searchLocation(event) {
-    if (event.key === "Enter") {
       fetch(
         `https://api.weatherapi.com/v1/current.json?key=b3972d7c329b490c9c1175956222706&q=${location}}`
       )
@@ -24,19 +24,27 @@ export function Weather() {
             icon: data.current.icon,
           });
         });
-    }
   }
+
+  const handleKeyDown = () => {
+  if(event.key === "Enter"){
+    searchLocation(event)
+  }
+}
 
   return (
     <div>
       <h1>Weather React app by Leonardo Klein</h1>
     <div className="Weather">
+      <div className="searchBar">
       <input
         type="text"
         placeholder="Type your location..."
         onChange={(event) => setLocation(event.target.value)}
-        onKeyPress={searchLocation}
+        onKeyDown={handleKeyDown}
       />
+      <button onClick={() => searchLocation() }><BsSearch /></button>
+      </div>
       <h2>{temp.city}</h2>
       <h3>{temp.weather}°c</h3>
       <p>{temp.time}</p>
