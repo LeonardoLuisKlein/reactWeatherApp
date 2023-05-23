@@ -110,3 +110,17 @@ button{
     width: 20px;
     height: 20px;
   }
+
+  .centerWeather{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .centerText{
+    text-align: center;
+    @media (max-width: 768px){
+      font-size: 20px;
+  }
+  }

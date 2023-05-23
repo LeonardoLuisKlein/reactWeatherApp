@@ -4,6 +4,7 @@ import { BsSearch } from 'react-icons/bs';
 
 export function Weather() {
   const [location, setLocation] = useState("");
+  const [error, setError] = useState(false)
   const [temp, setTemp] = useState({
     city: "Waiting",
     weather: "--",
@@ -11,20 +12,27 @@ export function Weather() {
     icon: "",
   });
 
-  function searchLocation(event) {
-      fetch(
-        `https://api.weatherapi.com/v1/current.json?key=b3972d7c329b490c9c1175956222706&q=${location}}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setTemp({
-            city: data.location.name,
-            weather: data.current.temp_c.toFixed(0),
-            time: data.current.condition.text,
-            icon: data.current.icon,
-          });
+  const searchLocation = async(event) => {
+
+    setError(false)
+    setTemp(null)
+
+      const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=b3972d7c329b490c9c1175956222706&q=${location}}`)
+      const data = await response.json()
+      if(response.status === 400) {
+        setError(true)
+        return
+      }
+      else{
+        setError(false)
+        setTemp({
+          city: data.location.name,
+          weather: data.current.temp_c.toFixed(0),
+          time: data.current.condition.text,
+          icon: data.current.icon,
         });
-  }
+      }
+}
 
   const handleKeyDown = () => {
   if(event.key === "Enter"){
@@ -45,9 +53,19 @@ export function Weather() {
       />
       <button onClick={() => searchLocation() }><BsSearch /></button>
       </div>
-      <h2>{temp.city}</h2>
-      <h3>{temp.weather}°c</h3>
-      <p>{temp.time}</p>
+      {error ? (
+        <p className="centerText">Error, no matching location found.</p>
+      ) : (
+        <div className="centerWeather">
+          {temp && (
+            <>
+              <h2>{temp.city}</h2>
+              <h3>{temp.weather}°C</h3>
+              <p className="centerText">{temp.time}</p>
+            </>
+          )}
+        </div>
+      )}
     </div>
     </div>
   );
