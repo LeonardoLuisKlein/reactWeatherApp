@@ -17,7 +17,7 @@ export function Weather() {
     setError(false)
     setTemp(null)
 
-      const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=b3972d7c329b490c9c1175956222706&q=${location}}`)
+      const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=apiKEY&q=${location}}`)
       const data = await response.json()
       if(response.status === 400) {
         setError(true)
